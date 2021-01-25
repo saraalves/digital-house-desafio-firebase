@@ -9,12 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CadastroGamesActivity" />
+        <activity android:name=".register.RegisterActivity"/>
         <activity android:name=".DetalhesGamesActivity" />
-        <activity android:name=".listagames.ListaGamesActivity" >
-        </activity>
-        <activity android:name=".register.view.RegisterActivity" />
-        <activity android:name=".login.view.LoginActivity" >
+        <activity android:name=".listagames.ListaGamesActivity"></activity>
+        <activity android:name=".login.view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +20,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".SplashActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 
