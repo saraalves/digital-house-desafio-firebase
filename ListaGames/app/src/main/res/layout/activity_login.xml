@@ -76,6 +76,7 @@
                 android:textSize="@dimen/dim_21_sp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim_19_dp"
@@ -88,6 +89,7 @@
                 android:textSize="@dimen/dim_21_sp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCreateAccoutn"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

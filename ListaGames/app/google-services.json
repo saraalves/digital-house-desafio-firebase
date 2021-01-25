@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "7039654893",
+    "project_id": "desafiofirebasedh",
+    "storage_bucket": "desafiofirebasedh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7039654893:android:8184eafaa82000d01f65e4",
+        "android_client_info": {
+          "package_name": "com.saraalves.listagames"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7039654893-qs86bhh972heao5738fhcf2d2hr3jjim.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.saraalves.listagames",
+            "certificate_hash": "f8124eb5fb4356662f2b6b31d0be870cd8c55d86"
+          }
+        },
+        {
+          "client_id": "7039654893-8eo8568mmoa5n3dhior5hhctm0pkupi1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsJ2Clyfp0mrK1kX-IR9KmjXqYjEeSChA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "7039654893-8eo8568mmoa5n3dhior5hhctm0pkupi1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
