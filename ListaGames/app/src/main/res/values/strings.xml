@@ -7,6 +7,8 @@
     <string name="senha">senha</string>
     <string name="repeate_password">repetir senha</string>
     <string name="create_account">CREATE ACCOUNT</string>
+    <string name="remember">Remember</string>
+    <string name="log_in">LOG IN</string>
 
 
 </resources>

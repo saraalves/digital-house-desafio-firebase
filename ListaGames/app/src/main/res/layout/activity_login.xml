@@ -72,7 +72,7 @@
                 android:layout_marginTop="@dimen/dim_17_dp"
                 android:layout_marginEnd="@dimen/dim_19_dp"
                 android:text="@string/remember"
-                android:textColor="@color/colorGrayDark"
+                android:textColor="@color/colorNavyBlueStrong"
                 android:textSize="@dimen/dim_21_sp" />
 
             <com.google.android.material.button.MaterialButton
@@ -97,7 +97,7 @@
                 android:layout_marginBottom="@dimen/dim_15_dp"
                 android:text="@string/create_account"
                 android:textAllCaps="false"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorNavyBlue"
                 android:textSize="@dimen/dim_21_sp" />
 
         </LinearLayout>
