@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".register.RegisterActivity"/>
-        <activity android:name=".DetalhesGamesActivity" />
+        <activity android:name=".detalhes.view.DetalhesGamesActivity" />
         <activity android:name=".listagames.ListaGamesActivity"></activity>
         <activity android:name=".login.view.LoginActivity">
             <intent-filter>

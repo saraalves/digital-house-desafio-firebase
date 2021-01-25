@@ -11,5 +11,6 @@
     <color name="colorGreen">#00796B</color>
     <color name="colorNavyBlue">#1E2D3E</color>
     <color name="colorNavyBlueStrong">#1F2D3D</color>
+    <color name="colorTransparente">#00000000</color>
 
 </resources>

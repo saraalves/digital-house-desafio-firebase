@@ -9,6 +9,10 @@
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="remember">Remember</string>
     <string name="log_in">LOG IN</string>
+    <string name="title_name_game">Nome do game</string>
+    <string name="txt_name_game">Nome do game</string>
+    <string name="txt_ano_lancamento">Ano</string>
+    <string name="txt_description">Descrição</string>
 
 
 </resources>
