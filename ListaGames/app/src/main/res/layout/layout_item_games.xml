@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dim_10_dp"
+    android:layout_marginTop="@dimen/dim_10_dp"
+    android:layout_marginEnd="@dimen/dim_10_dp"
+    android:layout_marginBottom="@dimen/dim_10_dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="@dimen/dim_10_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+
+        <ImageView
+            android:id="@+id/cardPersonagem"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim_150_dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/mortal_kombat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtNamePersongemCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_16_dp"
+            android:layout_marginStart="@dimen/dim_10_dp"
+            android:maxLines="2"
+            android:textAllCaps="true"
+            android:text="@string/nome_do_personagem"
+            android:textColor="@color/colorNavyBlueStrong"
+            android:textSize="@dimen/dim_20_sp"
+            app:layout_constraintTop_toBottomOf="@+id/cardPersonagem"
+            app:layout_constraintStart_toStartOf="@id/cardPersonagem"/>
+
+        <TextView
+            android:id="@+id/dataAno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/data_ano"
+            android:layout_marginBottom="@dimen/dim_16_dp"
+            android:textColor="@color/colorGray"
+            android:textSize="@dimen/dim_16_sp"
+            android:layout_marginTop="@dimen/dim_5_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtNamePersongemCard"
+            app:layout_constraintStart_toStartOf="@id/txtNamePersongemCard"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
