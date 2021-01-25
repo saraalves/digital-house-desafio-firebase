@@ -7,36 +7,12 @@
     android:background="@drawable/main_image"
     tools:context=".register.RegisterActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/bg_circle_red"
-        android:elevation="@dimen/dim_4_dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/personCreate"
-        android:layout_width="@dimen/dim_50_dp"
-        android:layout_height="@dimen/dim_50_dp"
-        android:elevation="@dimen/dim_8_dp"
-        android:src="@drawable/ic_baseline_camera_alt_24"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="@dimen/dim_10_dp"
         android:layout_marginEnd="@dimen/dim_10_dp"
-        android:layout_marginTop="@dimen/dim_150_dp"
         android:background="@color/colorWhite"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim_19_dp"
-            android:layout_marginTop="@dimen/dim_68_dp"
+            android:layout_marginTop="@dimen/dim_19_dp"
             android:layout_marginEnd="@dimen/dim_19_dp"
             android:hint="@string/name"
             android:textColorHint="@color/colorGray"
