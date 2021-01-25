@@ -13,6 +13,9 @@
     <string name="txt_name_game">Nome do game</string>
     <string name="txt_ano_lancamento">Ano</string>
     <string name="txt_description">Descrição</string>
+    <string name="description">Description</string>
+    <string name="save">SAVE GAME</string>
+    <string name="created_at">Ccreated at</string>
 
 
 </resources>
