@@ -18,7 +18,7 @@
 
 
         <ImageView
-            android:id="@+id/cardPersonagem"
+            android:id="@+id/cardGame"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dim_150_dp"
             android:adjustViewBounds="true"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtNamePersongemCard"
+            android:id="@+id/txtNameGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dim_16_dp"
@@ -39,8 +39,8 @@
             android:text="@string/nome_do_personagem"
             android:textColor="@color/colorNavyBlueStrong"
             android:textSize="@dimen/dim_20_sp"
-            app:layout_constraintTop_toBottomOf="@+id/cardPersonagem"
-            app:layout_constraintStart_toStartOf="@id/cardPersonagem"/>
+            app:layout_constraintTop_toBottomOf="@+id/cardGame"
+            app:layout_constraintStart_toStartOf="@id/cardGame"/>
 
         <TextView
             android:id="@+id/dataAno"
@@ -53,8 +53,8 @@
             android:textSize="@dimen/dim_16_sp"
             android:layout_marginTop="@dimen/dim_5_dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNamePersongemCard"
-            app:layout_constraintStart_toStartOf="@id/txtNamePersongemCard"/>
+            app:layout_constraintTop_toBottomOf="@+id/txtNameGame"
+            app:layout_constraintStart_toStartOf="@id/txtNameGame"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

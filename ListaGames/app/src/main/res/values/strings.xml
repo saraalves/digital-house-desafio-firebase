@@ -2,5 +2,11 @@
     <string name="app_name">ListaGames</string>
     <string name="nome_do_personagem">Nome do personagem</string>
     <string name="data_ano">2018</string>
+    <string name="name">nome</string>
+    <string name="email">e-mail</string>
+    <string name="senha">senha</string>
+    <string name="repeate_password">repetir senha</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+
 
 </resources>
