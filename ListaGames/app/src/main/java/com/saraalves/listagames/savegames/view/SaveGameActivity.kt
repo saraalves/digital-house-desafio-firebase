@@ -1,9 +1,13 @@
 package com.saraalves.listagames.savegames.view
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.MimeTypeMap
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -14,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.saraalves.listagames.R
+import com.saraalves.listagames.listagames.ListaGamesActivity
+import com.saraalves.listagames.listagames.model.GamesModel
 import com.saraalves.listagames.register.RegisterActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -33,6 +39,9 @@ class SaveGameActivity : AppCompatActivity() {
     private lateinit var user:  FirebaseUser
     private lateinit var userRef: StorageReference
     private lateinit var databaseRef: DatabaseReference
+    private lateinit var imageReference: String
+    private var imageURI: Uri? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,11 +63,26 @@ class SaveGameActivity : AppCompatActivity() {
         tilNameGame = findViewById(R.id.tilNameGame)
         tilDataGame = findViewById(R.id.tilDataGame)
         tilDescriptionGame = findViewById(R.id.tilDescriptionGame)
-
-
         imgSaveGame = findViewById(R.id.imgSaveGame)
-        imgSaveGame.setOnClickListener() {
-            procurarArquivo()
+
+        getImage()
+
+        btnSave.setOnClickListener() {
+            if (checarCamposVazios()) {
+                enviarArquivo(userRef)
+                enviarGame(
+                    databaseRef,
+                    etNameGame.text.toString(),
+                    etDataGame.text.toString(),
+                    etDescriptionGame.text.toString(),
+                    imageReference
+                )
+                val intent = Intent(this, ListaGamesActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                Toast.makeText(this, "Error validar inputs", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
@@ -66,35 +90,81 @@ class SaveGameActivity : AppCompatActivity() {
 
     }
 
-//    private fun checarCamposVazios(
-//        nameGame: String,
-//        ano: String,
-//        descricao: String,
-//
-//    ): Boolean {
-//
-//        if (nome.trim().isEmpty()) {
-//            findViewById<EditText>(R.id.etNameRegister).error = RegisterActivity.ERRO_VAZIO
-//            return false
-//        } else if (email.trim().isEmpty()) {
-//            findViewById<EditText>(R.id.etEmailRegister).error = RegisterActivity.ERRO_VAZIO
-//            return false
-//        } else if (senha.trim().isEmpty()) {
-//            findViewById<EditText>(R.id.etSenhaRegister).error = RegisterActivity.ERRO_VAZIO
-//            return false
-//        } else if (senhaRepeat.trim().isEmpty()) {
-//            findViewById<EditText>(R.id.etSenhaRepeateRegister).error = RegisterActivity.ERRO_VAZIO
-//            return false
-//        }
-//        return true
-//    }
-
-    fun procurarArquivo() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, CONTENT_REQUEST_CODE)
+    private fun getImage() {
+        imgSaveGame.setOnClickListener() {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent, CONTENT_REQUEST_CODE)
+        }
     }
+
+    private fun checarCamposVazios(): Boolean {
+
+        if (etNameGame.text?.trim()!!.isEmpty()) {
+            findViewById<EditText>(R.id.etNameGame).error = RegisterActivity.ERRO_VAZIO
+            return false
+        } else if (etDataGame.text?.trim()!!.isEmpty()) {
+            findViewById<EditText>(R.id.etDataGame).error = RegisterActivity.ERRO_VAZIO
+            return false
+        } else if (etDescriptionGame.text?.trim()!!.isEmpty()) {
+            findViewById<EditText>(R.id.etDescriptionGame).error = RegisterActivity.ERRO_VAZIO
+            return false
+        } else if (imageReference == null) {
+            findViewById<EditText>(R.id.imgSaveGame).error = RegisterActivity.ERRO_VAZIO
+            return false
+        }
+        return true
+    }
+
+    fun enviarArquivo(storageReference: StorageReference) {
+        if (imageURI != null) {
+            imageURI?.run {
+
+                val extension = MimeTypeMap.getSingleton()
+                    .getExtensionFromMimeType(contentResolver.getType(imageURI!!))
+
+                val fileReference =
+                    storageReference.child(user.uid).child("${System.currentTimeMillis()}.${extension}")
+
+                fileReference.putFile(this)
+                    .addOnSuccessListener {
+                        imageReference = fileReference.toString()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            this@SaveGameActivity,
+                            "Não foi possível carregar a imagem",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+            }
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == CONTENT_REQUEST_CODE && resultCode == RESULT_OK) {
+            imageURI = data?.data
+            findViewById<CircleImageView>(R.id.imgSaveGame).setImageURI(imageURI)
+        }
+    }
+
+    fun enviarGame(
+        databaseRef: DatabaseReference,
+        name: String,
+        date: String,
+        description: String,
+        image: String
+    ) {
+        val newGame = GamesModel(name, date, description, image)
+        databaseRef.child(user.uid).child(name).setValue(newGame)
+
+    }
+
 
 //    // Write a message to the database
 //    FirebaseDatabase database = FirebaseDatabase.getInstance();
