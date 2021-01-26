@@ -66,7 +66,11 @@ class SaveGameActivity : AppCompatActivity() {
         imgSaveGame = findViewById(R.id.imgSaveGame)
 
         getImage()
+        salvarGame()
 
+    }
+
+    private fun salvarGame() {
         btnSave.setOnClickListener() {
             if (checarCamposVazios()) {
                 enviarArquivo(userRef)
@@ -84,10 +88,6 @@ class SaveGameActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error validar inputs", Toast.LENGTH_SHORT).show()
             }
         }
-
-
-
-
     }
 
     private fun getImage() {
