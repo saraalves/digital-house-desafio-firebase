@@ -127,6 +127,12 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
     companion object {
         const val ERRO_VAZIO = "Campo Vazio"
