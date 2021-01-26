@@ -20,9 +20,13 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
+        val prefs = getSharedPreferences(APP_NAME, MODE_PRIVATE)
+        val prefsChecked = prefs.getBoolean(NOTIFICATION_PREFS, false)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if (auth.currentUser == null) {
+            if (prefsChecked && user != null) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -32,5 +36,10 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
         }, 2000)
+    }
+
+    companion object{
+        const val APP_NAME = "ListaGames"
+        const val NOTIFICATION_PREFS = "NOTIFICATION_PREFS"
     }
 }

@@ -17,9 +17,6 @@ class ListaGamesViewHolder(private val view: View): RecyclerView.ViewHolder(view
     fun bind(game: GamesModel) {
         nomeGame.text = game.nome
         anoGame.text = game.ano
-
-        Picasso.get()
-            .load(game.imagem)
-            .into(imagem)
+        Picasso.get().load(game.imgUrl).into(imagem)
     }
 }

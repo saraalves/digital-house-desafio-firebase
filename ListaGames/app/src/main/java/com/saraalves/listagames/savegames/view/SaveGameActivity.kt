@@ -1,5 +1,6 @@
 package com.saraalves.listagames.savegames.view
 
+import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,8 @@ import android.webkit.MimeTypeMap
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -20,6 +23,8 @@ import com.google.firebase.storage.StorageReference
 import com.saraalves.listagames.R
 import com.saraalves.listagames.listagames.ListaGamesActivity
 import com.saraalves.listagames.listagames.model.GamesModel
+import com.saraalves.listagames.listagames.repository.ListaGamesRepository
+import com.saraalves.listagames.listagames.viewmodel.ListaGamesViewModel
 import com.saraalves.listagames.register.RegisterActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -33,15 +38,18 @@ class SaveGameActivity : AppCompatActivity() {
     private lateinit var tilDataGame: TextInputLayout
     private lateinit var tilDescriptionGame: TextInputLayout
     private lateinit var imgSaveGame: CircleImageView
-    private lateinit var auth: FirebaseAuth
-    private lateinit var storage: FirebaseStorage
-    private lateinit var database: FirebaseDatabase
-    private lateinit var user:  FirebaseUser
-    private lateinit var userRef: StorageReference
-    private lateinit var databaseRef: DatabaseReference
+
     private lateinit var imageReference: String
     private var imageURI: Uri? = null
 
+    private lateinit var _viewModel: ListaGamesViewModel
+    private lateinit var database: FirebaseDatabase
+    private lateinit var auth: FirebaseAuth
+    private lateinit var databaseRef: DatabaseReference
+    private lateinit var storage: FirebaseStorage
+
+    private lateinit var user:  FirebaseUser
+    private lateinit var userRef: StorageReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,29 +73,57 @@ class SaveGameActivity : AppCompatActivity() {
         tilDescriptionGame = findViewById(R.id.tilDescriptionGame)
         imgSaveGame = findViewById(R.id.imgSaveGame)
 
+        viewModelProvider()
+        addUser(auth.currentUser!!.uid, database)
         getImage()
-        salvarGame()
+        saveGame()
+
 
     }
 
-    private fun salvarGame() {
-        btnSave.setOnClickListener() {
-            if (checarCamposVazios()) {
+    private fun saveGame() {
+        btnSave.setOnClickListener {
                 enviarArquivo(userRef)
-                enviarGame(
-                    databaseRef,
-                    etNameGame.text.toString(),
-                    etDataGame.text.toString(),
-                    etDescriptionGame.text.toString(),
-                    imageReference
-                )
-                val intent = Intent(this, ListaGamesActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                Toast.makeText(this, "Error validar inputs", Toast.LENGTH_SHORT).show()
-            }
+                val name = etNameGame.text.toString()
+                val data = etDataGame.text.toString()
+                val description = etDescriptionGame.text.toString()
+            addGame(databaseRef, name, data, description, "")
+            goHome()
         }
+    }
+
+    private fun addUser(userId: String, database: FirebaseDatabase){
+        _viewModel.addUser(userId, database).observe(this) {
+            databaseRef = it
+        }
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        goHome()
+    }
+
+    private fun addGame(
+        ref: DatabaseReference,
+        nome: String,
+        data: String,
+        description: String,
+        imgURL: String
+    ){
+        _viewModel.addGame(nome, data, description, imgURL, ref).observe(this) {
+            if (it) Toast.makeText(
+                this@SaveGameActivity,
+                "Game salvo com sucesso",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun goHome(){
+        val intent = Intent(this, ListaGamesActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun getImage() {
@@ -99,23 +135,6 @@ class SaveGameActivity : AppCompatActivity() {
         }
     }
 
-    private fun checarCamposVazios(): Boolean {
-
-        if (etNameGame.text?.trim()!!.isEmpty()) {
-            findViewById<EditText>(R.id.etNameGame).error = RegisterActivity.ERRO_VAZIO
-            return false
-        } else if (etDataGame.text?.trim()!!.isEmpty()) {
-            findViewById<EditText>(R.id.etDataGame).error = RegisterActivity.ERRO_VAZIO
-            return false
-        } else if (etDescriptionGame.text?.trim()!!.isEmpty()) {
-            findViewById<EditText>(R.id.etDescriptionGame).error = RegisterActivity.ERRO_VAZIO
-            return false
-        } else if (imageReference == null) {
-            findViewById<EditText>(R.id.imgSaveGame).error = RegisterActivity.ERRO_VAZIO
-            return false
-        }
-        return true
-    }
 
     fun enviarArquivo(storageReference: StorageReference) {
         if (imageURI != null) {
@@ -153,41 +172,18 @@ class SaveGameActivity : AppCompatActivity() {
         }
     }
 
-    fun enviarGame(
-        databaseRef: DatabaseReference,
-        name: String,
-        date: String,
-        description: String,
-        image: String
-    ) {
-        val newGame = GamesModel(name, date, description, image)
-        databaseRef.child(user.uid).child(name).setValue(newGame)
-
+    private fun sendAndGetImg(userId: String, nameGame: String, imgURI: Uri, firebaseStorage: FirebaseStorage, contentResolver: ContentResolver, circleImageView: CircleImageView){
+        _viewModel.addImg(userId, nameGame, imgURI, firebaseStorage, contentResolver, circleImageView).observe(this) {
+            imageURI = it
+        }
     }
 
-
-//    // Write a message to the database
-//    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//    DatabaseReference myRef = database.getReference("message");
-//
-//    myRef.setValue("Hello, World!");
-
-//    // Read from the database
-//    myRef.addValueEventListener(new ValueEventListener() {
-//        @Override
-//        public void onDataChange(DataSnapshot dataSnapshot) {
-//            // This method is called once with the initial value and again
-//            // whenever data at this location is updated.
-//            String value = dataSnapshot.getValue(String.class);
-//            Log.d(TAG, "Value is: " + value);
-//        }
-//
-//        @Override
-//        public void onCancelled(DatabaseError error) {
-//            // Failed to read value
-//            Log.w(TAG, "Failed to read value.", error.toException());
-//        }
-//    });
+    private fun viewModelProvider() {
+        _viewModel =
+            ViewModelProvider(this, ListaGamesViewModel.GameViewModelFactory(ListaGamesRepository())).get(
+                ListaGamesViewModel::class.java
+            )
+    }
 
     companion object {
         const val CONTENT_REQUEST_CODE = 1
