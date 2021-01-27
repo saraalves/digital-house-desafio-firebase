@@ -18,10 +18,10 @@ class ListaGamesViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun bind(game: GamesModel) {
         nomeGame.text = game.nome
         anoGame.text = game.ano
-        carregarImagem(game.imgUrl, imagem)
+        loadImage(game.imgUrl, imagem)
     }
 
-    private fun carregarImagem(img: String, imagem: ImageView?) {
+    private fun loadImage(img: String, imagem: ImageView?) {
         val storage = FirebaseStorage.getInstance().getReference("uploads")
 
         storage.child(img).downloadUrl.addOnSuccessListener {
