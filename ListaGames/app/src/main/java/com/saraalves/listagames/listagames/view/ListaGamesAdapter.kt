@@ -8,9 +8,31 @@ import com.saraalves.listagames.R
 import com.saraalves.listagames.listagames.model.GamesModel
 
 class ListaGamesAdapter(
-    private val _listaGames: MutableList<GamesModel>,
-    private val _listener: (GamesModel) -> Unit
 ): RecyclerView.Adapter<ListaGamesViewHolder>(){
+
+    private val _listaGames: MutableList<GamesModel> = mutableListOf()
+
+    fun addGame(game: GamesModel) {
+        _listaGames.add(game)
+        notifyDataSetChanged()
+    }
+
+    fun adicionarGames(game: List<GamesModel>) {
+        _listaGames.addAll(game)
+        notifyDataSetChanged()
+    }
+
+    fun updateGame(games: GamesModel) {
+        for (game in _listaGames  ) {
+            if (game.nome == games.nome) {
+                game.description = games.description
+                break
+            }
+        }
+
+        notifyDataSetChanged()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListaGamesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_item_games, parent, false)
@@ -23,7 +45,6 @@ class ListaGamesAdapter(
     override fun onBindViewHolder(holder: ListaGamesViewHolder, position: Int) {
        val item = _listaGames[position]
         holder.bind(item)
-        holder.itemView.setOnClickListener { _listener(item) }
     }
 }
 
