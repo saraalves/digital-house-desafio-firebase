@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.saraalves.listagames.R
 import com.saraalves.listagames.gamelist.GameListActivity
 import com.saraalves.listagames.register.RegisterActivity
-import com.saraalves.listagames.splash.SplashActivity
+import com.saraalves.listagames.utils.Constantes
 
 class LoginActivity : AppCompatActivity() {
 
@@ -30,9 +30,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         auth = Firebase.auth
 
-        val prefs = getSharedPreferences(SplashActivity.APP_NAME, MODE_PRIVATE)
+        val prefs = getSharedPreferences(Constantes.APP_NAME, MODE_PRIVATE)
         checkBox.setOnCheckedChangeListener { _, isChecked ->
-            prefs.edit().putBoolean(SplashActivity.NOTIFICATION_PREFS, isChecked).apply()
+            prefs.edit().putBoolean(Constantes.NOTIFICATION_PREFS, isChecked).apply()
         }
 
         btnCreateAccount.setOnClickListener {
@@ -51,11 +51,11 @@ class LoginActivity : AppCompatActivity() {
     private fun camposVazios(email: String, senha: String): Boolean {
         return when {
             email.isEmpty() -> {
-                etEmail.error = RegisterActivity.ERRO_VAZIO
+                etEmail.error = Constantes.ERRO_VAZIO
                 false
             }
             senha.isEmpty() -> {
-                etSenha.error = RegisterActivity.ERRO_VAZIO
+                etSenha.error = Constantes.ERRO_VAZIO
                 false
             }
             else -> {

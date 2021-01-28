@@ -21,6 +21,7 @@ import com.saraalves.listagames.gamelist.GameListActivity
 import com.saraalves.listagames.gamelist.repository.GameRepository
 import com.saraalves.listagames.gamelist.viewmodel.GameViewModel
 import com.saraalves.listagames.register.RegisterActivity
+import com.saraalves.listagames.utils.Constantes
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -87,13 +88,13 @@ class EditGameActivity : AppCompatActivity() {
         description: String
     ): Boolean {
         if (nome.isEmpty()) {
-            etNameGame.error = RegisterActivity.ERRO_VAZIO
+            etNameGame.error = Constantes.ERRO_VAZIO
             return false
         } else if (data.isEmpty()) {
-            etDataGame.error = RegisterActivity.ERRO_VAZIO
+            etDataGame.error = Constantes.ERRO_VAZIO
             return false
         } else if (description.isEmpty()) {
-            etDescriptionGame.error = RegisterActivity.ERRO_VAZIO
+            etDescriptionGame.error = Constantes.ERRO_VAZIO
             return false
         } else {
             return true

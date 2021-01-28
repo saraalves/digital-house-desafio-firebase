@@ -20,7 +20,7 @@ import com.google.firebase.storage.ktx.storage
 import com.saraalves.listagames.R
 import com.saraalves.listagames.gamelist.repository.GameRepository
 import com.saraalves.listagames.gamelist.viewmodel.GameViewModel
-import com.saraalves.listagames.register.RegisterActivity
+import com.saraalves.listagames.utils.Constantes
 import de.hdodenhof.circleimageview.CircleImageView
 
 class SaveGameActivity : AppCompatActivity() {
@@ -110,13 +110,13 @@ class SaveGameActivity : AppCompatActivity() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, CAMERA_REQUEST)
+        startActivityForResult(intent, Constantes.CAMERA_REQUEST)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == Constantes.CAMERA_REQUEST && resultCode == RESULT_OK) {
             imgUri = data?.data!!
             img.setImageURI(imgUri)
             sendImg(auth.currentUser!!.uid)
@@ -166,15 +166,15 @@ class SaveGameActivity : AppCompatActivity() {
     ): Boolean {
         return when {
             nome.isEmpty() -> {
-                etNameGame.error = RegisterActivity.ERRO_VAZIO
+                etNameGame.error = Constantes.ERRO_VAZIO
                 false
             }
             data.isEmpty() -> {
-                etDataGame.error = RegisterActivity.ERRO_VAZIO
+                etDataGame.error = Constantes.ERRO_VAZIO
                 false
             }
             description.isEmpty() -> {
-                etDescriptionGame.error = RegisterActivity.ERRO_VAZIO
+                etDescriptionGame.error = Constantes.ERRO_VAZIO
                 false
             }
             else -> {
@@ -189,7 +189,4 @@ class SaveGameActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        const val CAMERA_REQUEST = 3
-    }
 }

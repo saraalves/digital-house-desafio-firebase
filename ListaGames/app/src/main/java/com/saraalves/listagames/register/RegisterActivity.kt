@@ -12,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.saraalves.listagames.R
 import com.saraalves.listagames.login.LoginActivity
+import com.saraalves.listagames.utils.Constantes
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -37,7 +38,7 @@ class RegisterActivity : AppCompatActivity() {
             val senhaRepeate = etRepeateSenha.text.toString()
 
             if (checarCampos(nome, email, senha, senhaRepeate)) {
-                createAccount(nome, email, senha)
+                createAccount(email, senha)
             }
         }
     }
@@ -56,16 +57,16 @@ class RegisterActivity : AppCompatActivity() {
         senhaRepeate: String
     ): Boolean {
         if (nome.isEmpty()) {
-            etNomeRegister.error = ERRO_VAZIO
+            etNomeRegister.error = Constantes.ERRO_VAZIO
             return false
         } else if (email.isEmpty()) {
-            etEmailRegister.error = ERRO_VAZIO
+            etEmailRegister.error = Constantes.ERRO_VAZIO
             return false
         } else if (senha.isEmpty()) {
-            etSenhaRegister.error = ERRO_VAZIO
+            etSenhaRegister.error = Constantes.ERRO_VAZIO
             return false
         } else if (senhaRepeate.isEmpty()) {
-            etRepeateSenha.error = ERRO_VAZIO
+            etRepeateSenha.error = Constantes.ERRO_VAZIO
             return false
         } else {
             return true
@@ -76,7 +77,7 @@ class RegisterActivity : AppCompatActivity() {
         return if (senha == senhaRepeate) {
             true
         } else {
-            Toast.makeText(this@RegisterActivity, ERRO_DIFERENTES, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@RegisterActivity, Constantes.ERRO_DIFERENTES, Toast.LENGTH_SHORT).show()
             etSenhaRegister.text!!.clear()
             etRepeateSenha.text!!.clear()
             false
@@ -97,7 +98,7 @@ class RegisterActivity : AppCompatActivity() {
         return false
     }
 
-    private fun createAccount(nome: String, email: String, senha: String) {
+    private fun createAccount(email: String, senha: String) {
         auth.createUserWithEmailAndPassword(email, senha)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -124,10 +125,5 @@ class RegisterActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-    }
-
-    companion object {
-        const val ERRO_VAZIO = "Campo vazio"
-        const val ERRO_DIFERENTES = "As senhas precisam ser iguais"
     }
 }

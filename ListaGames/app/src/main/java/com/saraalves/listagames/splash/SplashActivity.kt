@@ -11,6 +11,7 @@ import com.google.firebase.ktx.Firebase
 import com.saraalves.listagames.R
 import com.saraalves.listagames.gamelist.GameListActivity
 import com.saraalves.listagames.login.LoginActivity
+import com.saraalves.listagames.utils.Constantes
 
 
 class SplashActivity : AppCompatActivity() {
@@ -24,8 +25,8 @@ class SplashActivity : AppCompatActivity() {
         auth = Firebase.auth
         val user = auth.currentUser
 
-        val prefs = getSharedPreferences(APP_NAME, MODE_PRIVATE)
-        val prefsChecked = prefs.getBoolean(NOTIFICATION_PREFS, false)
+        val prefs = getSharedPreferences(Constantes.APP_NAME, MODE_PRIVATE)
+        val prefsChecked = prefs.getBoolean(Constantes.NOTIFICATION_PREFS, false)
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (prefsChecked && user != null) {
@@ -39,8 +40,4 @@ class SplashActivity : AppCompatActivity() {
         },3000)
     }
 
-    companion object{
-        const val APP_NAME = "DesafioFirebase"
-        const val NOTIFICATION_PREFS = "NOTIFICATION_PREFS"
-    }
 }
