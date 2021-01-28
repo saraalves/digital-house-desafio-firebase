@@ -48,7 +48,7 @@ class SaveGameActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         viewModelProvider()
-        addUser(auth.currentUser!!.uid, database)
+        adicionaUsuario(auth.currentUser!!.uid, database)
 
         img.setOnClickListener {
             getImage()
@@ -59,25 +59,25 @@ class SaveGameActivity : AppCompatActivity() {
             val data = etDataGame.text.toString()
             val description = etDescriptionGame.text.toString()
 
-            if(camposVazios(name, data, description)) {
+            if(validaCampos(name, data, description)) {
                 noImage(imgURL)
-                addGame(ref, name, data, description, imgURL)
+                adicionaJogo(ref, name, data, description, imgURL)
             }
         }
     }
 
-    private fun addUser(userId: String, database: FirebaseDatabase) {
-        _viewModel.addUser(userId, database).observe(this, {
+    private fun adicionaUsuario(userId: String, database: FirebaseDatabase) {
+        _viewModel.addUser(userId, database).observe(this) {
             ref = it
-        })
+        }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        goHome()
+        goLista()
     }
 
-    private fun addGame(
+    private fun adicionaJogo(
         ref: DatabaseReference,
         nome: String,
         data: String,
@@ -91,7 +91,7 @@ class SaveGameActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
 
-            goHome()
+            goLista()
         }
     }
 
@@ -102,7 +102,7 @@ class SaveGameActivity : AppCompatActivity() {
             )
     }
 
-    private fun goHome() {
+    private fun goLista() {
         finish()
     }
 
@@ -119,13 +119,13 @@ class SaveGameActivity : AppCompatActivity() {
         if (requestCode == Constantes.CAMERA_REQUEST && resultCode == RESULT_OK) {
             imgUri = data?.data!!
             img.setImageURI(imgUri)
-            sendImg(auth.currentUser!!.uid)
+            enviarArquivo(auth.currentUser!!.uid)
         } else {
             Toast.makeText(this, "Erro ao salvar imagem", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun sendImg(userId: String) {
+    private fun enviarArquivo(userId: String) {
         imgUri.run {
 
             val extension = MimeTypeMap.getSingleton()
@@ -159,7 +159,7 @@ class SaveGameActivity : AppCompatActivity() {
         }
     }
 
-    private fun camposVazios(
+    private fun validaCampos(
         nome: String,
         data: String,
         description: String
