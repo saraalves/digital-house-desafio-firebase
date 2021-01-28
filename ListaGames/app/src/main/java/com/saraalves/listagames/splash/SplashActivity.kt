@@ -1,25 +1,27 @@
 package com.saraalves.listagames.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.saraalves.listagames.R
-import com.saraalves.listagames.listagames.ListaGamesActivity
-import com.saraalves.listagames.login.view.LoginActivity
+import com.saraalves.listagames.gamelist.GameListActivity
+import com.saraalves.listagames.login.LoginActivity
+
 
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
         val user = auth.currentUser
 
         val prefs = getSharedPreferences(APP_NAME, MODE_PRIVATE)
@@ -27,19 +29,18 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (prefsChecked && user != null) {
+                val intent = Intent(this, GameListActivity::class.java)
+                startActivity(intent)
+            } else {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
-            } else {
-                val intent = Intent(this, ListaGamesActivity::class.java)
-                startActivity(intent)
-                finish()
             }
-        }, 2000)
+        },3000)
     }
 
     companion object{
-        const val APP_NAME = "ListaGames"
+        const val APP_NAME = "DesafioFirebase"
         const val NOTIFICATION_PREFS = "NOTIFICATION_PREFS"
     }
 }

@@ -7,4 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView">
+        <item name="background">@color/colorWhite</item>
+        <item name="colorControlNormal">@color/colorGray</item>
+        <item name="actionMenuTextColor">@color/colorRed</item>
+        <item name="iconTint">@color/colorGray</item>
+        <item name="android:voiceIcon">@drawable/ic_baseline_mic_24</item>
+    </style>
+
 </resources>

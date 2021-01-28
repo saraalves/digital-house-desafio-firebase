@@ -5,19 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_image"
-    android:orientation="vertical"
-    tools:context=".savegames.view.SaveGameActivity">
+    tools:context=".savegame.SaveGameActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgSaveGame"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="130dp"
-        android:elevation="4dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_baseline_camera_alt_24"
-        app:civ_circle_background_color="@color/colorRed"
+        android:id="@+id/imgGame"
+        android:layout_width="@dimen/dim_100_dp"
+        android:layout_height="@dimen/dim_100_dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim_100_dp"
+        android:elevation="@dimen/dim_4_dp"
+        android:src="@drawable/icon_camera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="@dimen/dim_10_dp"
-        android:layout_marginTop="@dimen/dim_100_dp"
         android:layout_marginEnd="@dimen/dim_10_dp"
         android:background="@color/colorWhite"
         app:cardCornerRadius="@dimen/dim_10_dp"
@@ -126,6 +122,7 @@
                 android:textSize="@dimen/dim_21_sp" />
 
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".detail.DetailGameActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgGameDetail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim_300_dp"
+            android:adjustViewBounds="true"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/main_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dim_16_dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tvNameGameDetalhes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim_28_dp"
+            android:layout_marginBottom="@dimen/dim_16_dp"
+            android:shadowColor="@color/colorGrayDark"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="15"
+            android:text="@string/name"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/dim_30_sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgGameDetail"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSecondNameGameDetalhes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim_28_dp"
+            android:layout_marginTop="@dimen/dim_16_dp"
+            android:layout_marginEnd="@dimen/dim_28_dp"
+            android:text="@string/name"
+            android:textColor="@color/colorGrayDark"
+            android:textSize="@dimen/dim_26_sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgGameDetail" />
+
+        <TextView
+            android:id="@+id/tvAnoDetalhe"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="@dimen/dim_28_dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim_28_dp"
+            android:layout_marginTop="@dimen/dim_4_dp"
+            android:text="@string/ano"
+            android:textColor="@color/colorGray"
+            android:textSize="@dimen/dim_18_sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSecondNameGameDetalhes" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dim_28_dp"
+            android:layout_marginTop="@dimen/dim_20_dp"
+            android:text="@string/description"
+            android:layout_marginEnd="@dimen/dim_28_dp"
+            android:textColor="@color/colorGray"
+            android:textSize="@dimen/dim_18_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAnoDetalhe" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnEditGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_270_dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

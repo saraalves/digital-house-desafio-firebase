@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.saraalves.listagames">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,19 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".savegames.view.SaveGameActivity"></activity>
+        <activity android:name=".editgame.EditGameActivity"></activity>
+        <activity android:name=".savegame.SaveGameActivity" />
+        <activity android:name=".detail.DetailGameActivity" />
+        <activity android:name=".gamelist.GameListActivity" />
         <activity android:name=".register.RegisterActivity" />
-        <activity android:name=".detalhes.view.DetalhesGamesActivity" />
-        <activity android:name=".listagames.ListaGamesActivity" />
-        <activity android:name=".login.view.LoginActivity"/>
+        <activity android:name=".login.LoginActivity" />
         <activity android:name=".splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

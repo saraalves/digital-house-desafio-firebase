@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,10 +14,6 @@
         android:layout_marginStart="@dimen/dim_10_dp"
         android:layout_marginEnd="@dimen/dim_10_dp"
         android:background="@color/colorWhite"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:cardCornerRadius="@dimen/dim_10_dp">
 
         <LinearLayout
@@ -26,28 +22,30 @@
             android:background="@color/colorWhite"
             android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim_19_dp"
-            android:layout_marginTop="@dimen/dim_19_dp"
-            android:layout_marginEnd="@dimen/dim_19_dp"
-            android:hint="@string/name"
-            android:textColorHint="@color/colorGray"
-            app:boxBackgroundColor="@color/colorWhite"
-            app:boxStrokeColor="@color/colorGray">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNameRegister"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNameRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/dim_18_sp" />
+                android:layout_marginStart="@dimen/dim_19_dp"
+                android:layout_marginTop="@dimen/dim_26_dp"
+                android:layout_marginEnd="@dimen/dim_19_dp"
+                android:hint="@string/name"
+                android:textColorHint="@color/colorGray"
+                app:boxBackgroundColor="@color/colorWhite"
+                app:boxStrokeColor="@color/colorGray">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNameRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dim_18_sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmailRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim_19_dp"
@@ -58,17 +56,18 @@
                 app:boxBackgroundColor="@color/colorWhite"
                 app:boxStrokeColor="@color/colorGray">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmailRegister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/dim_18_sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmailRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dim_18_sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSenhaRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim_19_dp"
@@ -91,6 +90,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSenhaRepeateRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dim_19_dp"
@@ -128,10 +128,6 @@
 
         </LinearLayout>
 
-
-
     </androidx.cardview.widget.CardView>
 
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

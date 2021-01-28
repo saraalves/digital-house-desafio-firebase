@@ -3,18 +3,23 @@ package com.saraalves.listagames.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import com.saraalves.listagames.R
-import com.saraalves.listagames.login.view.LoginActivity
+import com.saraalves.listagames.login.LoginActivity
 
 class RegisterActivity : AppCompatActivity() {
+
+    private val btnCreateAccount: MaterialButton by lazy { findViewById(R.id.btnCreate) }
+    private val etEmailRegister: TextInputEditText by lazy { findViewById(R.id.etEmailRegister) }
+    private val etSenhaRegister: TextInputEditText by lazy { findViewById(R.id.etSenhaRegister) }
+    private val etRepeateSenha: TextInputEditText by lazy { findViewById(R.id.etSenhaRepeateRegister) }
+    private val etNomeRegister: TextInputEditText by lazy { findViewById(R.id.etNameRegister) }
 
     private lateinit var auth: FirebaseAuth
 
@@ -24,109 +29,19 @@ class RegisterActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        validaCampos()
-    }
+        btnCreateAccount.setOnClickListener {
 
-    private fun validaCampos() {
+            val nome = etNomeRegister.text.toString()
+            val email = etEmailRegister.text.toString()
+            val senha = etSenhaRegister.text.toString()
+            val senhaRepeate = etRepeateSenha.text.toString()
 
-        val btnCadastro = findViewById<MaterialButton>(R.id.btnCreate)
-
-        btnCadastro.setOnClickListener {
-            val nome = findViewById<EditText>(R.id.etNameRegister).text.toString()
-            val email = findViewById<EditText>(R.id.etEmailRegister).text.toString()
-            val senha = findViewById<EditText>(R.id.etSenhaRegister).text.toString()
-            val senhaConferir = findViewById<EditText>(R.id.etSenhaRepeateRegister).text.toString()
-
-            if (checarCamposVazios(nome, email, senha, senhaConferir)) {
-                if (checarQtdDigitosSenha(8, senha)) {
-                    if (senhasIguais(senha, senhaConferir)) {
-                        criarCadastroFirebase(nome, email, senha)
-                    }
-                }
+            if (checarCampos(nome, email, senha, senhaRepeate)) {
+                createAccount(nome, email, senha)
             }
         }
-
     }
 
-    private fun checarCamposVazios(
-        nome: String,
-        email: String,
-        senha: String,
-        senhaRepeat: String
-    ): Boolean {
-
-        if (nome.trim().isEmpty()) {
-            findViewById<EditText>(R.id.etNameRegister).error = ERRO_VAZIO
-            return false
-        } else if (email.trim().isEmpty()) {
-            findViewById<EditText>(R.id.etEmailRegister).error = ERRO_VAZIO
-            return false
-        } else if (senha.trim().isEmpty()) {
-            findViewById<EditText>(R.id.etSenhaRegister).error = ERRO_VAZIO
-            return false
-        } else if (senhaRepeat.trim().isEmpty()) {
-            findViewById<EditText>(R.id.etSenhaRepeateRegister).error = ERRO_VAZIO
-            return false
-        }
-        return true
-    }
-
-    private fun checarQtdDigitosSenha(qtdDigitos:Int, senha: String): Boolean {
-        if(senha.length >= qtdDigitos){
-            return true
-        } else {
-            findViewById<EditText>(R.id.etSenhaRegister).text.clear()
-            findViewById<EditText>(R.id.etSenhaRepeateRegister).text.clear()
-            findViewById<EditText>(R.id.etSenhaRegister).error = ERRO_DIGITOS
-            return false
-        }
-    }
-
-    private fun senhasIguais(senha: String, senhaRepeat: String): Boolean {
-        if(senha == senhaRepeat){
-            return true
-        } else {
-            Toast.makeText(this@RegisterActivity, "As senhas devem ser iguais", Toast.LENGTH_SHORT)
-                .show()
-            findViewById<EditText>(R.id.etSenhaRegister).text.clear()
-            findViewById<EditText>(R.id.etSenhaRepeateRegister).text.clear()
-            return false
-        }
-    }
-
-    private fun criarCadastroFirebase(nome: String, email: String, senha: String){
-
-        auth.createUserWithEmailAndPassword(email, senha)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-
-                    val profileUpdates = userProfileChangeRequest {
-                        displayName = nome
-                    }
-
-                    user!!.updateProfile(profileUpdates).addOnCompleteListener {
-                        Toast.makeText(baseContext, "Usuário criado com sucesso", Toast.LENGTH_SHORT).show()
-                        sendEmail()
-                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                } else {
-                    Toast.makeText(baseContext, "Erro ao criar usuário", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
-
-    private fun sendEmail(){
-        val user = Firebase.auth.currentUser
-
-        user!!.sendEmailVerification()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                }
-            }
-    }
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(this, LoginActivity::class.java)
@@ -134,8 +49,85 @@ class RegisterActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun camposVazios(
+        nome: String,
+        email: String,
+        senha: String,
+        senhaRepeate: String
+    ): Boolean {
+        if (nome.isEmpty()) {
+            etNomeRegister.error = ERRO_VAZIO
+            return false
+        } else if (email.isEmpty()) {
+            etEmailRegister.error = ERRO_VAZIO
+            return false
+        } else if (senha.isEmpty()) {
+            etSenhaRegister.error = ERRO_VAZIO
+            return false
+        } else if (senhaRepeate.isEmpty()) {
+            etRepeateSenha.error = ERRO_VAZIO
+            return false
+        } else {
+            return true
+        }
+    }
+
+    private fun senhasIguais(senha: String, senhaRepeate: String): Boolean {
+        return if (senha == senhaRepeate) {
+            true
+        } else {
+            Toast.makeText(this@RegisterActivity, ERRO_DIFERENTES, Toast.LENGTH_SHORT).show()
+            etSenhaRegister.text!!.clear()
+            etRepeateSenha.text!!.clear()
+            false
+        }
+    }
+
+    private fun checarCampos(
+        nome: String,
+        email: String,
+        senha: String,
+        senhaRepeate: String
+    ): Boolean {
+        if (camposVazios(nome, email, senha, senhaRepeate)) {
+            if (senhasIguais(senha, senhaRepeate)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun createAccount(nome: String, email: String, senha: String) {
+        auth.createUserWithEmailAndPassword(email, senha)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    Toast.makeText(baseContext, "Usuário criado com sucesso! Cheque seu email para autenticação", Toast.LENGTH_SHORT).show()
+                    sendEmail(user!!)
+                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(baseContext, "Erro ao criar usuário", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun sendEmail(user: FirebaseUser) {
+        user.sendEmailVerification()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(
+                        baseContext,
+                        "Usuário criado com sucesso! Cheque seu email para verificação",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+    }
+
     companion object {
-        const val ERRO_VAZIO = "Campo Vazio"
-        const val ERRO_DIGITOS = "O campo deve ter no mínimo 8 dígitos"
+        const val ERRO_VAZIO = "Campo vazio"
+        const val ERRO_DIFERENTES = "As senhas precisam ser iguais"
     }
 }
