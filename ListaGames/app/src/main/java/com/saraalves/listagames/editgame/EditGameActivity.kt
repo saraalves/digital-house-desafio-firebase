@@ -77,7 +77,7 @@ class EditGameActivity : AppCompatActivity() {
 
             if(camposVazios(name, data, description)) {
                 if(imgURL.isEmpty()){imgURL = imgAtual!!}
-                editGame(ref, name, data, description, imgURL, refId)
+                editaGame(ref, name, data, description, imgURL, refId)
             }
         }
     }
@@ -112,7 +112,7 @@ class EditGameActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun editGame(
+    private fun editaGame(
         ref: DatabaseReference,
         nome: String,
         data: String,
@@ -126,7 +126,7 @@ class EditGameActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
 
-            goHome()
+            goList()
         }
     }
 
@@ -137,7 +137,7 @@ class EditGameActivity : AppCompatActivity() {
             )
     }
 
-    private fun goHome() {
+    private fun goList() {
         val intent = Intent(this, GameListActivity::class.java)
         startActivity(intent)
         finish()
@@ -147,22 +147,22 @@ class EditGameActivity : AppCompatActivity() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, CAMERA_REQUEST)
+        startActivityForResult(intent, Constantes.CAMERA_REQUEST_EDIT)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == Constantes.CAMERA_REQUEST_EDIT && resultCode == RESULT_OK) {
             imgUri = data?.data!!
             img.setImageURI(imgUri)
-            sendNewImg(auth.currentUser!!.uid)
+            enviarArquivo(auth.currentUser!!.uid)
         } else {
             Toast.makeText(this, "Erro ao salvar imagem", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun sendNewImg(userId: String) {
+    private fun enviarArquivo(userId: String) {
         imgUri.run {
 
             val extension = MimeTypeMap.getSingleton()
@@ -194,9 +194,5 @@ class EditGameActivity : AppCompatActivity() {
                     ).show()
                 }
         }
-    }
-
-    companion object {
-        const val CAMERA_REQUEST = 4
     }
 }

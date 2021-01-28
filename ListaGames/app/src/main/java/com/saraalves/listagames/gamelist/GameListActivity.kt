@@ -50,7 +50,7 @@ class GameListActivity : AppCompatActivity() {
         val manager = GridLayoutManager(this, 2)
 
         viewModelProvider()
-        refresh()
+        load()
         setUpNavigation()
         setUpRecyclerView(recyclerView, manager)
         getGames(ref, this, _gameList)
@@ -61,7 +61,7 @@ class GameListActivity : AppCompatActivity() {
         }
     }
 
-    private fun refresh() {
+    private fun load() {
         swipeRefreshLayout.setOnRefreshListener {
             SwipeRefreshLayout.OnRefreshListener {
                 _gameList.clear()

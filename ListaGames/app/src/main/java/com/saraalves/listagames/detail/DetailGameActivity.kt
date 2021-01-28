@@ -36,7 +36,7 @@ class DetailGameActivity : AppCompatActivity() {
         }
 
         btnEditGame.setOnClickListener {
-            editGame(nome, data, descricao)
+            getGame(nome, data, descricao)
         }
 
         tvNomeDetail.text = nome
@@ -51,7 +51,7 @@ class DetailGameActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun editGame(nome: String?, data: String?, descricao: String?){
+    private fun getGame(nome: String?, data: String?, descricao: String?){
         val intent = Intent(this, EditGameActivity::class.java)
         intent.putExtra("NAMEA", nome)
         intent.putExtra("LANCAMENTOA", data)
