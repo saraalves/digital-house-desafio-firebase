@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -24,11 +25,11 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class SaveGameActivity : AppCompatActivity() {
 
-    private val btnSave: MaterialButton by lazy { findViewById(R.id.btnSave) }
-    private val etNameGame: TextInputEditText by lazy { findViewById(R.id.etNameGame) }
-    private val etDataGame: TextInputEditText by lazy { findViewById(R.id.etDataGame) }
-    private val etDescriptionGame: TextInputEditText by lazy { findViewById(R.id.etDescriptionGame) }
-    private val img: CircleImageView by lazy { findViewById(R.id.imgGame) }
+    private val btnSave: MaterialButton by lazy { findViewById<MaterialButton>(R.id.btnSave) }
+    private val etNameGame: TextInputEditText by lazy { findViewById<TextInputEditText>(R.id.etNameGame) }
+    private val etDataGame: TextInputEditText by lazy { findViewById<TextInputEditText>(R.id.etDataGame) }
+    private val etDescriptionGame: TextInputEditText by lazy { findViewById<TextInputEditText>(R.id.etDescriptionGame) }
+    private val img: CircleImageView by lazy { findViewById<CircleImageView>(R.id.imgGame) }
 
     private val database = Firebase.database
     private lateinit var auth: FirebaseAuth
@@ -83,7 +84,7 @@ class SaveGameActivity : AppCompatActivity() {
         description: String,
         imgURL: String
     ) {
-        _viewModel.addGame(nome, data, description, imgURL, ref).observe(this, {
+        _viewModel.addGame(nome, data, description, imgURL, ref).observe(this) {
             Toast.makeText(
                 this@SaveGameActivity,
                 "Game salvo com sucesso",
@@ -91,7 +92,7 @@ class SaveGameActivity : AppCompatActivity() {
             ).show()
 
             goHome()
-        })
+        }
     }
 
     private fun viewModelProvider() {

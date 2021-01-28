@@ -25,11 +25,11 @@ import com.saraalves.listagames.savegame.SaveGameActivity
 
 class GameListActivity : AppCompatActivity() {
 
-    private val searchView: SearchView by lazy { findViewById(R.id.searchView) }
-    private val swipeRefreshLayout: SwipeRefreshLayout by lazy { findViewById(R.id.swipeToRefresh) }
+    private val searchView: SearchView by lazy { findViewById<SearchView>(R.id.searchView) }
+    private val swipeRefreshLayout: SwipeRefreshLayout by lazy { findViewById<SwipeRefreshLayout>(R.id.swipeToRefresh) }
 
-    private val recyclerView: RecyclerView by lazy { findViewById(R.id.recyclerGames) }
-    private val btnNewGame: FloatingActionButton by lazy { findViewById(R.id.btnNewGame) }
+    private val recyclerView: RecyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerGames) }
+    private val btnNewGame: FloatingActionButton by lazy { findViewById<FloatingActionButton>(R.id.btnNewGame) }
 
     private lateinit var _gameListAdapter: GameListAdapter
     private lateinit var _viewModel: GameViewModel
