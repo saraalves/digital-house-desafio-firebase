@@ -17,11 +17,11 @@ import com.saraalves.listagames.splash.SplashActivity
 
 class LoginActivity : AppCompatActivity() {
 
-    private val btnCreateAccount: MaterialButton by lazy { findViewById(R.id.btnCreateAccount) }
-    private val btnLogin: MaterialButton by lazy { findViewById(R.id.btnLogin) }
-    private val etEmail: TextInputEditText by lazy { findViewById(R.id.etEmailLogin) }
-    private val etSenha: TextInputEditText by lazy { findViewById(R.id.etSenhaLogin) }
-    private val checkBox: CheckBox by lazy { findViewById(R.id.cbRemember) }
+    private val btnCreateAccount: MaterialButton by lazy { findViewById<MaterialButton>(R.id.btnCreateAccount) }
+    private val btnLogin: MaterialButton by lazy { findViewById<MaterialButton>(R.id.btnLogin) }
+    private val etEmail: TextInputEditText by lazy { findViewById<TextInputEditText>(R.id.etEmailLogin) }
+    private val etSenha: TextInputEditText by lazy { findViewById<TextInputEditText>(R.id.etSenhaLogin) }
+    private val checkBox: CheckBox by lazy { findViewById<CheckBox>(R.id.cbRemember) }
 
     private lateinit var auth: FirebaseAuth
 

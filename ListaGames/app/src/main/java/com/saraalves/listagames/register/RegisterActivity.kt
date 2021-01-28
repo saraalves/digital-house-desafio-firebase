@@ -15,11 +15,11 @@ import com.saraalves.listagames.login.LoginActivity
 
 class RegisterActivity : AppCompatActivity() {
 
-    private val btnCreateAccount: MaterialButton by lazy { findViewById(R.id.btnCreate) }
-    private val etEmailRegister: TextInputEditText by lazy { findViewById(R.id.etEmailRegister) }
-    private val etSenhaRegister: TextInputEditText by lazy { findViewById(R.id.etSenhaRegister) }
-    private val etRepeateSenha: TextInputEditText by lazy { findViewById(R.id.etSenhaRepeateRegister) }
-    private val etNomeRegister: TextInputEditText by lazy { findViewById(R.id.etNameRegister) }
+    private val btnCreateAccount: MaterialButton by lazy { findViewById<MaterialButton>(R.id.btnCreate) }
+    private val etEmailRegister: TextInputEditText by lazy { findViewById<TextInputEditText>(R.id.etEmailRegister) }
+    private val etSenhaRegister: TextInputEditText by lazy { findViewById<TextInputEditText>(R.id.etSenhaRegister) }
+    private val etRepeateSenha: TextInputEditText by lazy { findViewById<TextInputEditText>(R.id.etSenhaRepeateRegister) }
+    private val etNomeRegister: TextInputEditText by lazy { findViewById<TextInputEditText>(R.id.etNameRegister) }
 
     private lateinit var auth: FirebaseAuth
 
