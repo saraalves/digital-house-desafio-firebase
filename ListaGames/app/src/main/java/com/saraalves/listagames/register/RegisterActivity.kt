@@ -50,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun camposVazios(
+    private fun validaCampos(
         nome: String,
         email: String,
         senha: String,
@@ -73,7 +73,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun senhasIguais(senha: String, senhaRepeate: String): Boolean {
+    private fun validaSenhas(senha: String, senhaRepeate: String): Boolean {
         return if (senha == senhaRepeate) {
             true
         } else {
@@ -90,8 +90,8 @@ class RegisterActivity : AppCompatActivity() {
         senha: String,
         senhaRepeate: String
     ): Boolean {
-        if (camposVazios(nome, email, senha, senhaRepeate)) {
-            if (senhasIguais(senha, senhaRepeate)) {
+        if (validaCampos(nome, email, senha, senhaRepeate)) {
+            if (validaSenhas(senha, senhaRepeate)) {
                 return true
             }
         }
@@ -104,7 +104,7 @@ class RegisterActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     Toast.makeText(baseContext, "Usuário criado com sucesso! Cheque seu email para autenticação", Toast.LENGTH_SHORT).show()
-                    sendEmail(user!!)
+                    verificaEmail(user!!)
                     val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -114,7 +114,7 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    private fun sendEmail(user: FirebaseUser) {
+    private fun verificaEmail(user: FirebaseUser) {
         user.sendEmailVerification()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

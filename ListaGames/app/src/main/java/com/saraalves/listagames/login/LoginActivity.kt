@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun camposVazios(email: String, senha: String): Boolean {
+    private fun validaCampos(email: String, senha: String): Boolean {
         return when {
             email.isEmpty() -> {
                 etEmail.error = Constantes.ERRO_VAZIO
@@ -83,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(email: String, senha: String) {
-        if (camposVazios(email, senha)) {
+        if (validaCampos(email, senha)) {
             autenticarUsuario(email, senha)
         }
     }
